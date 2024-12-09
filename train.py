@@ -46,6 +46,41 @@ class MultiLabelRepresentationProbe:
                 'macro_f1': macro_f1,
                 'accuracies': accuracies
             }
+    
+def average_accuracies_for_the_same_predicate(self, accuracies:list, labels:list[str]) -> list:
+    """average the accuracies across columns that have the same predicate. For example, `grasped cookies_1` and `grasped plate_1` have the same predicate
+    Args:
+        accuracies (list): a matrix of accuracies
+        labels: labels of the columns of the matrix aka the symbols e.g. `grasped cookies_1` and `grasped plate_1`.
+    Returns:
+        accuracies averaged across columns with the same predicate
+    """
+    from collections import OrderedDict
+    
+    # Dictionary to store column indices by predicate in the order they appear
+    predicate_to_indices = OrderedDict()
+    
+    # Extract predicates and group their corresponding column indices
+    for i, label in enumerate(labels):
+        predicate = label.split()[0]
+        if predicate not in predicate_to_indices:
+            predicate_to_indices[predicate] = []
+        predicate_to_indices[predicate].append(i)
+    
+    # Now, compute the averaged accuracies for each row across the columns of the same predicate
+    averaged_accuracies = []
+    for row in accuracies:
+        averaged_row = []
+        for predicate, indices in predicate_to_indices.items():
+            # Gather all values for this predicate
+            vals = [row[idx] for idx in indices]
+            # Compute the average
+            avg_val = sum(vals) / len(vals) if vals else 0.0
+            averaged_row.append(avg_val)
+        averaged_accuracies.append(averaged_row)
+    
+    return averaged_accuracies
+
 
 def load_probe_data(directory, exclude_files=None):
     """

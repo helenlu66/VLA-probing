@@ -30,7 +30,7 @@ def find_failed_episodes(root_dir):
 
 # Example usage
 if __name__ == "__main__":
-    root_directory = "/root/openvla/rollouts/2024_12_03"  # Change to your root directory
+    root_directory = "/root/openvla/rollouts/2024_12_10"  # Change to your root directory
 
     # Find failed episodes
     failed_files = find_failed_episodes(root_directory)

@@ -59,6 +59,6 @@ def zip_episodes(root_dir, output_zip):
 # Example usage
 if __name__ == "__main__":
     root_directory = "/root/openvla/experiments/logs"  # Change to your root directory
-    output_zip_file = "episodes_1to100.zip"  # Change to your desired output ZIP file name
+    output_zip_file = "episodes.zip"  # Change to your desired output ZIP file name
 
     zip_episodes(root_directory, output_zip_file)
